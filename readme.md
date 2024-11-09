@@ -185,3 +185,29 @@ sudo rm /Library/LaunchDaemons/com.zj.frpc.plist
 ```
 
 通过这些步骤，你可以在macOS上创建一个开机自启动的服务来执行`frpc`命令，并且可以通过`launchctl`命令来管理这个服务。
+
+## 定时重复运行
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.zj.autopull</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>cd /path/to/your/repo && git pull</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>3600</integer>    <!-- 每小时执行一次 -->
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StandardErrorPath</key>
+    <string>/path/to/your/repo/autopull.error.log</string>
+    <key>StandardOutPath</key>
+    <string>/path/to/your/repo/autopull.output.log</string>
+</dict>
+</plist>
+```
